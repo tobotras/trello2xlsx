@@ -10,25 +10,23 @@
 
 (defn- process-card [data card]
   (if-let [name (get card "name")]
-    (let [shortUrl (get card "shortUrl")
-          desc (get card "desc")]
-      [name shortUrl desc])
+    [name (get card "shortUrl") (get card "desc")]
     (bad-json)))
 
 (defn- process-list [data l]
   (if-let [name (get l "name")]
     [name 
-     (let [id (get l "id")
-           cards (get data "cards")]
+     (let [id (get l "id")]
        (vec (map #(process-card data %)
-                 (filter #(= (get % "idList") id) cards))))]
+                 (filter #(= (get % "idList") id) (get data "cards")))))]
     (bad-json)))
   
 (defn- process-json [data out-file]
   (if-let [lists (get data "lists")]
-    (let [wb-data (apply concat (map #(process-list data %) lists))]
-      (let [wb (apply sheet/create-workbook wb-data)]
-        (sheet/save-workbook! out-file wb)))
+    (sheet/save-workbook!
+     out-file
+     (apply sheet/create-workbook
+            (apply concat (map #(process-list data %) lists))))
     (bad-json)))
 
 (defn -main [& args]
