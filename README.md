@@ -1,6 +1,6 @@
 # trello2xlsx
 
-Converts Trello JSON export to XLSX files. Each list gets converted into the separate file.
+Converts Trello JSON export to XLSX file.
 
 ## Installation
 
