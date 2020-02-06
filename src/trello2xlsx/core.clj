@@ -35,5 +35,6 @@
     (println "Usage: trello2xlsx source.json destination.xlsx")
     (System/exit 1))
   (with-open [input (clojure.java.io/reader (first args))]
-    (when-let [data (json/read input)]
-      (process-json data (second args)))))
+    (if-let [data (json/read input)]
+      (process-json data (second args))
+      (bad-json))))

@@ -8,7 +8,7 @@ Install JRE, clojure and leiningen. Run "lein uberjar". Copy *-standalone.jar to
 
 ## Usage
 
-    $ java -jar trello2xlsx-0.1.0-standalone.jar trello-export-file.json destination.xlsx
+    $ trello2xlsx.sh trello-export-file.json destination.xlsx
 
 ## License
 
